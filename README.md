@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <h1 align="center">
 Cinema +
 </h1>
@@ -166,3 +167,8 @@ License
 ----
 
 MIT
+=======
+# Ticket-Booking-Cinema
+# Ung dung quan li viec dat ve xem phim
+# Nhom 8
+>>>>>>> 9454f2c73a99799b667adcb84625feb12d33393a
