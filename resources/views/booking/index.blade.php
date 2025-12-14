@@ -75,6 +75,7 @@
             @if($movies->count() > 0)
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
                     @foreach($movies as $movie)
+                    @if($movie->is_active!=0)
                         <div class="bg-white rounded-xl border border-gray-200 overflow-hidden hover:border-purple-500 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group shadow-md max-w-full">
                             <a href="{{ route('booking.movie.details', $movie->id) }}" class="block">
                                 <!-- Movie Poster -->
@@ -133,7 +134,9 @@
                                     </button>
                                 </div>
                             </a>
+
                         </div>
+                        @endif
                     @endforeach
                 </div>
             @else
