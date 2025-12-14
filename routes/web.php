@@ -30,6 +30,10 @@ Route::middleware(['auth:web', 'role:CUSTOMER'])->group(function () {
     Route::get('/showtimes/{id}/seats', [BookingController::class, 'seatMap'])->name('booking.seat-map');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/my-bookings', [DashboardController::class, 'myBookings'])->name('my.bookings');
+
+    Route::get('/checkout', [PaymentController::class, 'checkout'])->name('payment.checkout');
+    Route::post('/payment/vietqr', [PaymentController::class, 'generateVietQR'])->name('payment.vietqr');
+    Route::post('/payment/confirm', [PaymentController::class, 'confirmPayment'])->name('payment.confirm');
 });
 
 // Authentication Routes (Guest only)
