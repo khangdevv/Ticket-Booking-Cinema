@@ -27,7 +27,6 @@ Route::get('/', function () {
 Route::middleware(['auth:web', 'role:CUSTOMER'])->group(function () {
     Route::get('/movies', [BookingController::class, 'index'])->name('booking.index');
     Route::get('/movies/{id}', [BookingController::class, 'showMovieDetail'])->name('booking.movie.detail');
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 
 // Authentication Routes (Guest only)
