@@ -53,6 +53,13 @@ Route::middleware(['auth:web', 'role:ADMIN,STAFF'])->prefix('admin')->group(func
     Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/statistics', [AdminController::class, 'statistics'])->name('admin.statistics');
 
+        // User Management
+    Route::get('/users', [AdminController::class, 'usersList'])->name('admin.users.list');
+    Route::get('/users/{id}/edit', [AdminController::class, 'userEdit'])->name('admin.users.edit');
+    Route::put('/users/{id}', [AdminController::class, 'userUpdate'])->name('admin.users.update');
+    Route::delete('/users/{id}', [AdminController::class, 'userDelete'])->name('admin.users.delete');
+    Route::patch('/users/{id}/toggle-status', [AdminController::class, 'userToggleStatus'])->name('admin.users.toggle-status');
+
     // Movie Management
     Route::get('/movies', [AdminController::class, 'moviesList'])->name('admin.movies.list');
     Route::get('/movies/create', [AdminController::class, 'movieCreate'])->name('admin.movies.create');

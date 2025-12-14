@@ -169,4 +169,52 @@ class AdminController extends Controller
         return redirect()->route('admin.movies.list')
             ->with('success', 'Cập nhật trạng thái phim thành công');
     }
+    // USER MANAGEMENT
+    public function usersList()
+    {
+        $users = Account::orderBy('id', 'desc')->paginate(10);
+        return view('admin.users.list', ['users' => $users]);
+    }
+
+    public function userEdit($id)
+    {
+        $user = Account::findOrFail($id);
+        return view('admin.users.edit', ['user' => $user]);
+    }
+
+    public function userUpdate(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'full_name' => 'required|string|max:255',
+            'email' => 'required|email|unique:account,email,' . $id,
+            'phone' => 'nullable|string|max:20',
+            'role' => 'required|in:CUSTOMER,STAFF,ADMIN',
+            'is_active' => 'boolean',
+        ]);
+
+        $user = Account::findOrFail($id);
+        $validated['is_active'] = $request->boolean('is_active');
+        $user->update($validated);
+
+        return redirect()->route('admin.users.list')
+            ->with('success', 'Cập nhật người dùng thành công');
+    }
+
+    public function userDelete($id)
+    {
+        $user = Account::findOrFail($id);
+
+        return redirect()->route('admin.users.list')
+            ->with('success', 'Xóa người dùng thành công');
+    }
+
+    public function userToggleStatus($id)
+    {
+        $user = Account::findOrFail($id);
+        $user->is_active = !$user->is_active;
+        $user->save();
+
+        return redirect()->route('admin.users.list')
+            ->with('success', 'Cập nhật trạng thái người dùng thành công');
+    }
 }
