@@ -41,4 +41,30 @@ class BookingController extends Controller
         
         return view('booking.movie-detail', compact('movie', 'showtimesByDate'));
     }
+    public function seatMap($showtimeId)
+    {
+        $showtime = Showtime::with(['movie', 'screen.seats'])
+            ->where('status', 'OPEN')
+            ->findOrFail($showtimeId);
+        
+        // Get booked seats
+        $bookedSeats = OrderLine::whereHas('order', function($query) use ($showtimeId) {
+            $query->where('showtime_id', $showtimeId)
+                ->whereIn('status', ['PAID']);
+        })
+        ->where('item_type', 'TICKET')
+        ->pluck('seat_id')
+        ->toArray();
+        
+        // Get locked seats
+        $lockedSeats = SeatLock::where('showtime_id', $showtimeId)
+            ->where('expires_at', '>', Carbon::now())
+            ->pluck('seat_id')
+            ->toArray();
+        
+        // Group seats by row
+        $seatsByRow = $showtime->screen->seats->groupBy('row_label')->sortKeys();
+        
+        return view('booking.seat-map', compact('showtime', 'seatsByRow', 'bookedSeats', 'lockedSeats'));
+    }
 }
