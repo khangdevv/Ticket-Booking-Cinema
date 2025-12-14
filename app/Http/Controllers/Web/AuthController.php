@@ -41,7 +41,7 @@ class AuthController extends Controller
 
         Auth::guard('web')->login($account);
 
-        return redirect()->route('dashboard')->with('success', 'Login successful!');
+        return redirect()->route('home')->with('success', 'Login successful!');
     }
 
     public function showRegisterForm()
@@ -83,49 +83,5 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         return redirect()->route('auth.login.form')->with('success', 'Đăng xuất thành công!');
-    }
-
-    // Google OAuth methods
-    public function redirectToGoogle()
-    {
-        return Socialite::driver('google')->redirect();
-    }
-
-    public function handleGoogleCallback()
-    {
-        try {
-            $googleUser = Socialite::driver('google')->user();
-
-            // Tìm user theo google_id hoặc email
-            $account = Account::where('google_id', $googleUser->getId())
-                ->orWhere('email', $googleUser->getEmail())
-                ->first();
-
-            if ($account) {
-                // Cập nhật google_id nếu chưa có
-                if (!$account->google_id) {
-                    $account->google_id = $googleUser->getId();
-                    $account->save();
-                }
-            } else {
-                // Tạo account mới
-                $account = Account::create([
-                    'email' => $googleUser->getEmail(),
-                    'google_id' => $googleUser->getId(),
-                    'full_name' => $googleUser->getName(),
-                    'password_hash' => Hash::make(Str::random(16)), // Random password
-                    'role' => 'CUSTOMER',
-                    'is_active' => true,
-                ]);
-            }
-
-            Auth::guard('web')->login($account);
-
-            return redirect()->route('home')->with('success', 'Đăng nhập Google thành công!');
-
-        } catch (\Exception $e) {
-            return redirect()->route('auth.login.form')
-                ->with('error', 'Đăng nhập Google thất bại: ' . $e->getMessage());
-        }
     }
 }
