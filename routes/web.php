@@ -4,7 +4,18 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\AuthController;
 
 Route::get('/', function () {
-    return view('welcome');
+    if (auth()->guard('web')->check()) {
+        $user = auth()->guard('web')->user();
+
+        // Nếu là ADMIN hoặc STAFF thì vào admin panel
+        if (in_array($user->role, ['ADMIN', 'STAFF'])) {
+            return redirect()->route('admin.dashboard');
+        }
+
+        // Nếu là CUSTOMER thì vào trang đặt vé
+        return redirect()->route('booking.index');
+    }
+    return redirect()->route('auth.login.form');
 })->name('home');
 
 Route::middleware('guest:web')->group(function () {
