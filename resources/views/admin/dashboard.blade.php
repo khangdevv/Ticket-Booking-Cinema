@@ -69,7 +69,7 @@
 
 <!-- Quick Actions -->
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-    <a href="{{ route('admin.users.list') }}" class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md hover:border-purple-300 transition-all group">
+    <a href="#" class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md hover:border-purple-300 transition-all group">
         <div class="flex items-center gap-4">
             <div class="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center group-hover:bg-blue-200 transition-colors">
                 <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">

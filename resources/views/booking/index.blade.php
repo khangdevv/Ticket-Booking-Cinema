@@ -19,7 +19,7 @@
                 <!-- Desktop Menu (hidden on mobile) -->
                 <div class="hidden md:flex gap-4 items-center">
                     <a href="{{ route('booking.index') }}" class="text-purple-600 hover:text-purple-700 font-semibold">Đặt Vé</a>
-                    <a href="{{ route('my.bookings') }}" class="text-gray-600 hover:text-purple-600 font-medium">Vé Của Tôi</a>
+                    <a href="#" class="text-gray-600 hover:text-purple-600 font-medium">Vé Của Tôi</a>
                     <a href="{{ route('dashboard') }}" class="text-gray-600 hover:text-purple-600 font-medium">Cài Đặt</a>
                     <span class="text-gray-300">|</span>
                     <span class="text-gray-700 font-medium">{{ auth()->user()->full_name }}</span>
@@ -43,7 +43,7 @@
             <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 border-t border-gray-200 pt-4">
                 <div class="flex flex-col gap-3">
                     <a href="{{ route('booking.index') }}" class="text-purple-600 hover:text-purple-700 font-semibold py-2">Đặt Vé</a>
-                    <a href="{{ route('my.bookings') }}" class="text-gray-600 hover:text-purple-600 font-medium py-2">Vé Của Tôi</a>
+                    <a href="# class="text-gray-600 hover:text-purple-600 font-medium py-2">Vé Của Tôi</a>
                     <a href="{{ route('dashboard') }}" class="text-gray-600 hover:text-purple-600 font-medium py-2">Cài Đặt</a>
                     <div class="border-t border-gray-200 pt-3 mt-2">
                         <span class="text-gray-700 font-medium block mb-3">{{ auth()->user()->full_name }}</span>
@@ -76,7 +76,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
                     @foreach($movies as $movie)
                         <div class="bg-white rounded-xl border border-gray-200 overflow-hidden hover:border-purple-500 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group shadow-md max-w-full">
-                            <a href="{{ route('booking.movie.details', $movie->id) }}" class="block">
+                            <a href="{{ route('booking.movie.detail', $movie->id) }}" class="block">
                                 <!-- Movie Poster -->
                                 <div class="relative overflow-hidden">
                                     @if($movie->poster)
