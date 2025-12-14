@@ -203,7 +203,7 @@ class AdminController extends Controller
     public function userDelete($id)
     {
         $user = Account::findOrFail($id);
-
+        $user->delete();
         return redirect()->route('admin.users.list')
             ->with('success', 'Xóa người dùng thành công');
     }
